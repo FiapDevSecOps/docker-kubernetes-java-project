@@ -27,7 +27,7 @@ pipeline {
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
                         docker build -t ${USER}/${CONTAINER1}:${TAG} -t ${USER}/${CONTAINER1}:latest .
-                        docker push ${USER}/${CONTAINER1}:${TAG}
+                        docker push ${USER}/${CONTAINER1}:latest 
                     '''
                 }
                 
@@ -43,7 +43,7 @@ pipeline {
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
                         docker build -t ${USER}/${CONTAINER2}:${TAG} -t ${USER}/${CONTAINER2}:latest . 
-                        docker push ${USER}/${CONTAINER2}:${TAG}
+                        docker push ${USER}/${CONTAINER2}:latest 
                     '''
                 }
                 
@@ -59,7 +59,7 @@ pipeline {
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
                         docker build -t ${USER}/${CONTAINER3}:${TAG} -t ${USER}/${CONTAINER3}:latest .
-                        docker push ${USER}/${CONTAINER3}:${TAG}
+                        docker push ${USER}/${CONTAINER3}:latest 
                     '''
                 }
                 
