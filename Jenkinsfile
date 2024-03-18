@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git branch: 'main', url: 'https://github.com/FiapDevSecOps/docker-kubernetes-java-project.git'
+                git BRANCH_NAME: 'main', url: 'https://github.com/FiapDevSecOps/docker-kubernetes-java-project.git'
             }
         }
 
@@ -24,10 +24,9 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
                     sh '''
                         cd productcatalogue
-                         def BRANCH = sh(returnStdout: true, script: 'git rev-parse --abbrev-ref HEAD')
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER1}:${BRANCH}-${TAG} .
+                        docker build -t ${USER}/${CONTAINER1}:${BRANCH_NAME}-${TAG} .
                         docker push ${USER}/${CONTAINER1}:${TAG}
                     '''
                 }
@@ -43,7 +42,7 @@ pipeline {
                         cd shopfront
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER2}:${BRANCH}-${TAG} . 
+                        docker build -t ${USER}/${CONTAINER2}:${BRANCH_NAME}-${TAG} . 
                         docker push ${USER}/${CONTAINER2}:${TAG}
                     '''
                 }
@@ -57,11 +56,11 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
                     sh '''
                         cd stockmanager
-                        branch=$(git rev-parse --abbrev-ref HEAD)  
+                        BRANCH_NAME=$(git rev-parse --abbrev-ref HEAD)  
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER3}:${BRANCH}-${TAG} .
-                        docker push ${USER}/${CONTAINER3}:${BRANCH}-${TAG}
+                        docker build -t ${USER}/${CONTAINER3}:${BRANCH_NAME}-${TAG} .
+                        docker push ${USER}/${CONTAINER3}:${BRANCH_NAME}-${TAG}
                     '''
                 }
                 
