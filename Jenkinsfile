@@ -26,7 +26,7 @@ pipeline {
                         cd productcatalogue
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER1}:${GIT_BRANCH}-${TAG} .
+                        docker build -t ${USER}/${CONTAINER1}:${BUILD_ID}-${TAG} .
                         docker push ${USER}/${CONTAINER1}:${TAG}
                     '''
                 }
@@ -42,7 +42,7 @@ pipeline {
                         cd shopfront
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER2}:${GIT_BRANCH}-${TAG} . 
+                        docker build -t ${USER}/${CONTAINER2}:${BUILD_ID}-${TAG} . 
                         docker push ${USER}/${CONTAINER2}:${TAG}
                     '''
                 }
@@ -56,11 +56,11 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
                     sh '''
                         cd stockmanager
-                        GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)  
+                        BUILD_ID=$(git rev-parse --abbrev-ref HEAD)  
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER3}:${GIT_BRANCH}-${TAG} .
-                        docker push ${USER}/${CONTAINER3}:${GIT_BRANCH}-${TAG}
+                        docker build -t ${USER}/${CONTAINER3}:${BUILD_ID}-${TAG} .
+                        docker push ${USER}/${CONTAINER3}:${BUILD_ID}-${TAG}
                     '''
                 }
                 
