@@ -9,6 +9,7 @@ pipeline {
         USER = 'rosthan'
         TAG = 'v1'
         DOCKERFILE_PATH = 'Dockerfile.master'
+        BUILD_ENV = 'stg'
 
     }
 
@@ -26,7 +27,7 @@ pipeline {
                         cd productcatalogue
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER1}:${env.GIT_BRANCH}-${TAG} .
+                        docker build -t ${USER}/${CONTAINER1}:${BUILD_ENV}-${TAG} .
                         docker push ${USER}/${CONTAINER1}:${TAG}
                     '''
                 }
@@ -42,7 +43,7 @@ pipeline {
                         cd shopfront
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER2}:${env.GIT_BRANCH}-${TAG} . 
+                        docker build -t ${USER}/${CONTAINER2}:${BUILD_ENV}-${TAG} . 
                         docker push ${USER}/${CONTAINER2}:${TAG}
                     '''
                 }
@@ -56,11 +57,11 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
                     sh '''
                         cd stockmanager
-                        env.GIT_BRANCH=$(git rev-parse --abbrev-ref HEAD)  
+                        BUILD_ENV=$(git rev-parse --abbrev-ref HEAD)  
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER3}:${env.GIT_BRANCH}-${TAG} .
-                        docker push ${USER}/${CONTAINER3}:${env.GIT_BRANCH}-${TAG}
+                        docker build -t ${USER}/${CONTAINER3}:${BUILD_ENV}-${TAG} .
+                        docker push ${USER}/${CONTAINER3}:${BUILD_ENV}-${TAG}
                     '''
                 }
                 
