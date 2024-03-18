@@ -10,5 +10,4 @@ The workflow of the project is going to be like this in the below image ⬇️�
 
 ![workflow of project logo](https://user-images.githubusercontent.com/103496926/211329892-bc005b89-9975-44cc-9bb9-88d55ce5a22a.png)
 
-The whole blog about this project is Published on "Kubesimplify". Here, You can check : https://blog.kubesimplify.com/deploying-java-application-using-docker-and-kubernetes-devops-project#comments-list
-# docker-kubernetes-java-project
+
