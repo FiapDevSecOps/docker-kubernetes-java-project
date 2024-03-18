@@ -15,7 +15,7 @@ pipeline {
     stages {
         stage('Checkout') {
             steps {
-                git GIT_BRANCH: 'main', url: 'https://github.com/FiapDevSecOps/docker-kubernetes-java-project.git'
+                git branch: 'main', url: 'https://github.com/FiapDevSecOps/docker-kubernetes-java-project.git'
             }
         }
 
