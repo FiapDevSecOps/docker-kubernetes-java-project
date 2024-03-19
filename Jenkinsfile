@@ -56,21 +56,28 @@ pipeline {
             }
         }
 
+      // Etapa de workflow do Terraform
         stage('Terraform Workflow') {
             parallel {
+                // Etapa de inicialização do Terraform
                 stage('Terraform Init') {
                     steps {
-                        sh 'terraform init -upgrade'
+                        sh 'export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"'
+                        sh 'export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"'
+                        sh 'export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"'
+                        sh 'cd terraform && terraform init -upgrade'
                     }
                 }
+                // Etapa de plano do Terraform
                 stage('Terraform Plan') {
                     steps {
-                        sh 'terraform plan -out=plan.file'
+                        sh 'cd terraform && terraform init -upgrade && terraform plan -out=plan.file'
                     }
                 }
+                // Etapa de aplicação do Terraform
                 stage('Terraform Apply') {
                     steps {
-                        sh 'terraform apply plan.file'
+                        sh 'cd terraform && terraform init -upgrade && terraform apply plan.file -auto-approve'
                     }
                 }
             }
