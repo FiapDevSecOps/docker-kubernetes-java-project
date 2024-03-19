@@ -67,55 +67,9 @@ pipeline {
         // }
 
       // Etapa de workflow do Terraform
-        stage('Terraform Workflow') {
-            parallel {
-                // Etapa de inicialização do Terraform
-                stage('Terraform Init') {
-                    
-                    steps {
-                        dir("${env.WORKSPACE}/terraform")  {
-                            sh  '''
-                                ls -lha
-                                echo $PWD
-                                export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-                                export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-                                terraform init -upgrade  -no-color
-                                '''
-                        }
-
-                        
-                    }
-                }
-                // Etapa de plano do Terraform
-                stage('Terraform Plan') {
-                    steps {
-                        dir("${env.WORKSPACE}/terraform")  {
-                            sh  '''
-                                export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-                                export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-                                terraform init -upgrade  -no-color
-                                terraform plan -no-color
-                                '''
-                        }
-                    }
-                }
-                // Etapa de aplicação do Terraform
-                stage('Terraform Apply') {
-                    steps {
-                        dir("${env.WORKSPACE}/terraform")  {
-                            sh '''
-                                export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-                                export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-                                terraform init -upgrade  -no-color
-                                terraform plan -no-color
-                                terraform apply -auto-approve  -no-color
-                        '''
-                        }
-                    }
-                }
+       stage('Trigger Terraform Pipeline') {
+            steps {
+                build job: "terraform_eks_java", wait: true
             }
         }
     }
