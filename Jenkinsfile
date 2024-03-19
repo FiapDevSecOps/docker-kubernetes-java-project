@@ -65,7 +65,7 @@ pipeline {
 
         stage('Secure Scan Test') {
             steps {
-                grypeScan scanDest: 'dir:/tmp/grpc' 'docker:nginx:latest', repName: 'myScanResult.txt', autoInstall:true,
+                grypeScan scanDest: 'dir:${APP}' 'docker:nginx:latest', repName: 'myScanResult.txt', autoInstall:true,
             }
         }
 
