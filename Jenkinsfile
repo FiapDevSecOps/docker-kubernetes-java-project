@@ -30,6 +30,7 @@ pipeline {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
                     sh '''
                         cd ${APP}
+                        mkdir -p /tmp/grpc
                         mvn clean install -DskipTests
                     '''
                 }
