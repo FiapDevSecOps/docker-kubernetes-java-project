@@ -63,7 +63,7 @@ pipeline {
                 stage('Terraform Init') {
                     
                     steps {
-                        dir("terraform")  {
+                        dir("${env.WORKSPACE}/terraform")  {
                             sh '''
                                 ls -lha
                                 echo $PWD
@@ -80,7 +80,7 @@ pipeline {
                 // Etapa de plano do Terraform
                 stage('Terraform Plan') {
                     steps {
-                        dir("terraform")  {
+                        dir("${env.WORKSPACE}/terraform")  {
                             sh '''
                                 export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
                                 export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
@@ -94,7 +94,7 @@ pipeline {
                 // Etapa de aplicação do Terraform
                 stage('Terraform Apply') {
                     steps {
-                        dir("terraform")  {
+                        dir("${env.WORKSPACE}/terraform")  {
                             sh '''
                                 export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
                                 export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
