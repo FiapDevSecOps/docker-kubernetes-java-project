@@ -18,7 +18,7 @@ pipeline {
             }
         }
 
-        stage('Build App') {
+        stage('Meaven Build') {
             steps {
                 withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
                     sh '''
