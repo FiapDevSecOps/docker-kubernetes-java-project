@@ -71,12 +71,12 @@ pipeline {
                 }
                 stage('Terraform Plan') {
                     steps {
-                        sh 'cd terraform ; terraform plan -out=plan.file'
+                        sh 'cd terraform ; terraform init -upgrade ; terraform plan -out=plan.file'
                     }
                 }
                 stage('Terraform Apply') {
                     steps {
-                        sh 'cd terraform ; terraform apply plan.file'
+                        sh 'cd terraform ; terraform init -upgrade ; terraform apply plan.file'
                     }
                 }
             }
