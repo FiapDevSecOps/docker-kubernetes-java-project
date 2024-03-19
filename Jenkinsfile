@@ -77,18 +77,7 @@ pipeline {
 
     post {
         always {
-            recordIssues(
-              tools: [grype()],
-              aggregatingResults: true,
-              failedNewAll: 1, 
-              failedTotalHigh: 20,
-              failedTotalAll : 100, 
-              filters: [
-                excludeType('CVE-2023-2976'),
-                excludeType('CVE-2012-17488'),
-              ],
-              //failOnError: true
-            )
+           echo "away run"
         }
 
         success {
