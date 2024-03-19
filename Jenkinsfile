@@ -37,11 +37,7 @@ pipeline {
             }
         }
 
-        stage('Secure Scan Test') {
-            steps {
-                grypeScan scanDest: 'dir:/tmp/grpc', repName: 'myScanResult.txt', autoInstall:true
-            }
-        }
+
 
         stage('Build Docker Image') {
             steps {
@@ -64,6 +60,12 @@ pipeline {
                         docker push ${USER}/${APP}:latest 
                     '''
                 }
+            }
+        }
+
+        stage('Secure Scan Test') {
+            steps {
+                grypeScan scanDest: 'dir:/tmp/grpc', docker:${USER}/${APP}:${TAG} ,repName: 'myScanResult.txt', autoInstall:true
             }
         }
 
