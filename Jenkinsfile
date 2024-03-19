@@ -2,10 +2,20 @@ pipeline {
     agent { label 'docker' }
 
     environment {
-        GIT_SSH_COMMAND = 'ssh -o StrictHostKeyChecking=no' // Skip host key checking
+               // Configuração para pular a verificação do host SSH
+        GIT_SSH_COMMAND = 'ssh -o StrictHostKeyChecking=no'
+        // Nome da aplicação
         APP = 'productcatalogue'
+        // Nome do usuário
         USER = 'rosthan'
+        // Tag da imagem Docker
         TAG = 'v1'
+        // ID da chave de acesso da AWS
+        AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
+        // Chave secreta de acesso da AWS
+        AWS_SECRET_ACCESS_KEY = credentials('AWS_SECRET_ACCESS_KEY')
+        // Token de sessão da AWS
+        AWS_SESSION_TOKEN = credentials('AWS_SESSION_TOKEN')
     }
 
     stages {
@@ -64,14 +74,14 @@ pipeline {
                     
                     steps {
                         dir("${env.WORKSPACE}/terraform")  {
-                            sh '''
+                            sh  '''
                                 ls -lha
                                 echo $PWD
                                 export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
                                 export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
                                 export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
                                 terraform init -upgrade  -no-color
-                        '''
+                                '''
                         }
 
                         
@@ -81,13 +91,13 @@ pipeline {
                 stage('Terraform Plan') {
                     steps {
                         dir("${env.WORKSPACE}/terraform")  {
-                            sh '''
+                            sh  '''
                                 export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
                                 export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
                                 export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
                                 terraform init -upgrade  -no-color
                                 terraform plan -no-color
-                        '''
+                                '''
                         }
                     }
                 }

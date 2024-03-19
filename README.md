@@ -1,4 +1,11 @@
 # Docker-Java-kubernetes-project
+
+
+- [ ] -  Create terraform pipeline (terraform_eks)
+- [ ] -  Create jenkins Java App Full Pipeline (java_full_devops_pipeline)
+- [ ] -  Multibranch pipeline (mb_pipeline)
+- [ ] -  Create Single App Pipeline (single_java)
+
 Deploying Java Applications with Docker and Kubernetes
 
 Credit: https://github.com/danielbryantuk/oreilly-docker-java-shopping/
