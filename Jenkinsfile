@@ -65,8 +65,7 @@ pipeline {
 
         stage('Secure Scan Test') {
             steps {
-                grypeScan scanDest: 'dir:./productcatalogue', repName: 'myScanResult.txt', autoInstall:true,
-            }
+                grypeScan scanDest: 'dir:./productcatalogue', repName: 'myScanResult.txt', autoInstall:true            }
         }
 
       // Etapa de workflow do Terraform
