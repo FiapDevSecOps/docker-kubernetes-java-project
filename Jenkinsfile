@@ -25,46 +25,46 @@ pipeline {
             }
         }
 
-        // stage('Meaven Build') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
-        //             sh '''
-        //                 cd ${APP}
-        //                 mvn clean install -DskipTests
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Meaven Build') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
+                    sh '''
+                        cd ${APP}
+                        mvn clean install -DskipTests
+                    '''
+                }
+            }
+        }
 
-        // stage('Secure Scan Test') {
-        //     steps {
-        //         grypeScan scanDest: 'dir:/tmp/grpc', repName: 'myScanResult.txt', autoInstall:true
-        //     }
-        // }
+        stage('Secure Scan Test') {
+            steps {
+                grypeScan scanDest: 'dir:/tmp/grpc', repName: 'myScanResult.txt', autoInstall:true
+            }
+        }
 
-        // stage('Build Docker Image') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
-        //             sh '''
-        //                 cd ${APP}
-        //                 docker login -u $HUB_USER -p $HUB_TOKEN 
-        //                 docker build -t ${USER}/${APP}:${TAG} -t ${USER}/${APP}:latest .
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Build Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
+                    sh '''
+                        cd ${APP}
+                        docker login -u $HUB_USER -p $HUB_TOKEN 
+                        docker build -t ${USER}/${APP}:${TAG} -t ${USER}/${APP}:latest .
+                    '''
+                }
+            }
+        }
 
-        // stage('Push Docker Image') {
-        //     steps {
-        //         withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
-        //             sh '''
-        //                 cd ${APP}
-        //                 docker login -u $HUB_USER -p $HUB_TOKEN 
-        //                 docker push ${USER}/${APP}:latest 
-        //             '''
-        //         }
-        //     }
-        // }
+        stage('Push Docker Image') {
+            steps {
+                withCredentials([usernamePassword(credentialsId: 'docker-hub', usernameVariable: 'HUB_USER', passwordVariable: 'HUB_TOKEN')]) {                      
+                    sh '''
+                        cd ${APP}
+                        docker login -u $HUB_USER -p $HUB_TOKEN 
+                        docker push ${USER}/${APP}:latest 
+                    '''
+                }
+            }
+        }
 
       // Etapa de workflow do Terraform
        stage('Trigger Terraform Pipeline') {
