@@ -74,13 +74,13 @@ pipeline {
                 // Etapa de plano do Terraform
                 stage('Terraform Plan') {
                     steps {
-                        sh 'cd terraform && terraform init -upgrade && terraform plan -out=plan.file'
+                        sh 'terraform init -upgrade && terraform plan -out=plan.file'
                     }
                 }
                 // Etapa de aplicação do Terraform
                 stage('Terraform Apply') {
                     steps {
-                        sh 'cd terraform && terraform init -upgrade && terraform apply plan.file -auto-approve'
+                        sh 'terraform init -upgrade && terraform apply plan.file -auto-approve'
                     }
                 }
             }
