@@ -102,37 +102,37 @@ pipeline {
         }
     }
 
-    post {
-        always {
-            recordIssues(
-              tools: [grype()],
-              aggregatingResults: true,
-              failedNewAll: 1, //falha se houver >=1 novos problemas
-              failedTotalHigh: 20, //falha se houver >=20 HIGHs
-              failedTotalAll : 100, //falha se houver >=100 problemas no total
-              filters: [
-                excludeType('CVE-2023-2976'),
-                excludeType('CVE-2012-17488'),
-              ],
-            )
-        }
+//     post {
+//         always {
+//             recordIssues(
+//               tools: [grype()],
+//               aggregatingResults: true,
+//               failedNewAll: 1, //falha se houver >=1 novos problemas
+//               failedTotalHigh: 20, //falha se houver >=20 HIGHs
+//               failedTotalAll : 100, //falha se houver >=100 problemas no total
+//               filters: [
+//                 excludeType('CVE-2023-2976'),
+//                 excludeType('CVE-2012-17488'),
+//               ],
+//             )
+//         }
 
-        success { 
-           bash ./deploy.sh
-        }
+//         success { 
+//            bash ./deploy.sh
+//         }
 
-        failure { 
+//         failure { 
 
-            echo 'This will run only if failed'
-        }
+//             echo 'This will run only if failed'
+//         }
 
-        unstable { 
-            echo 'This will run only if the run was marked as unstable'
-        }
+//         unstable { 
+//             echo 'This will run only if the run was marked as unstable'
+//         }
 
-        changed { 
-            echo 'This will run only if the state of the Pipeline has changed'
-            echo 'For example, if the Pipeline was previously failing but is now successful'
-        }
-    }
-}
+//         changed { 
+//             echo 'This will run only if the state of the Pipeline has changed'
+//             echo 'For example, if the Pipeline was previously failing but is now successful'
+//         }
+//     }
+// }
