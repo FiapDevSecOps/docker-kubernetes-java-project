@@ -31,7 +31,7 @@ spec:
     spec:
       containers:
         - name: stockmanager
-          image: taniaduggal60/stockmanager:latest
+          image: rosthan/stockmanager:latest
           ports:
             - containerPort: 8030
           livenessProbe:
