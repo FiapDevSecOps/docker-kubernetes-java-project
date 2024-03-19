@@ -80,9 +80,9 @@ pipeline {
             recordIssues(
               tools: [grype()],
               aggregatingResults: true,
-              failedNewAll: 1, //fail if >=1 new issues
-              failedTotalHigh: 20, //fail if >=20 HIGHs
-              failedTotalAll : 100, //fail if >=100 issues in total
+              failedNewAll: 1, 
+              failedTotalHigh: 20,
+              failedTotalAll : 100, 
               filters: [
                 excludeType('CVE-2023-2976'),
                 excludeType('CVE-2012-17488'),
