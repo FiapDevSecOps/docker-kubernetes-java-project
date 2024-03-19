@@ -61,11 +61,14 @@ pipeline {
             parallel {
                 // Etapa de inicialização do Terraform
                 stage('Terraform Init') {
+                    
                     steps {
-                        sh 'export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"'
-                        sh 'export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"'
-                        sh 'export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"'
-                        sh 'cd terraform && terraform init -upgrade'
+                        sh '''
+                        export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"
+                        export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"
+                        export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"
+                        cd terraform && terraform init -upgrade
+                        '''
                     }
                 }
                 // Etapa de plano do Terraform
