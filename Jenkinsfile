@@ -102,9 +102,7 @@ pipeline {
         }
     }
 
-    // Define as ações a serem executadas após a execução do pipeline
     post {
-        // Executado sempre, independentemente do resultado
         always {
             recordIssues(
               tools: [grype()],
@@ -116,7 +114,6 @@ pipeline {
                 excludeType('CVE-2023-2976'),
                 excludeType('CVE-2012-17488'),
               ],
-              //failOnError: true
             )
         }
 
