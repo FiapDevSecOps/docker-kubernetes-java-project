@@ -63,24 +63,42 @@ pipeline {
                 stage('Terraform Init') {
                     
                     steps {
-                        sh '''
-                        export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
-                        export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
-                        export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
-                        cd terraform && terraform init -upgrade
+                        dir("terraform")  {
+                            sh '''
+                                export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                                export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+                                terraform init -upgrade
                         '''
+                        }
+
+                        
                     }
                 }
                 // Etapa de plano do Terraform
                 stage('Terraform Plan') {
                     steps {
-                        sh 'terraform init -upgrade && terraform plan -out=plan.file'
+                        dir("terraform")  {
+                            sh '''
+                                export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                                export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+                                terraform init -upgrade
+                        '''
+                        }
                     }
                 }
                 // Etapa de aplicação do Terraform
                 stage('Terraform Apply') {
                     steps {
-                        sh 'terraform init -upgrade && terraform apply plan.file -auto-approve'
+                        dir("terraform")  {
+                            sh '''
+                                export AWS_ACCESS_KEY_ID=${AWS_ACCESS_KEY_ID}
+                                export AWS_SECRET_ACCESS_KEY=${AWS_SECRET_ACCESS_KEY}
+                                export AWS_SESSION_TOKEN=${AWS_SESSION_TOKEN}
+                                terraform init -upgrade
+                        '''
+                        }
                     }
                 }
             }
