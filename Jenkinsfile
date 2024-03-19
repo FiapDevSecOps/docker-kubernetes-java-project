@@ -66,17 +66,17 @@ pipeline {
                         sh 'export AWS_ACCESS_KEY_ID="${AWS_ACCESS_KEY_ID}"'
                         sh 'export AWS_SECRET_ACCESS_KEY="${AWS_SECRET_ACCESS_KEY}"'
                         sh 'export AWS_SESSION_TOKEN="${AWS_SESSION_TOKEN}"'
-                        sh 'terraform init -upgrade'
+                        sh 'cd terraform ; terraform init -upgrade'
                     }
                 }
                 stage('Terraform Plan') {
                     steps {
-                        sh 'terraform plan -out=plan.file'
+                        sh 'cd terraform ; terraform plan -out=plan.file'
                     }
                 }
                 stage('Terraform Apply') {
                     steps {
-                        sh 'terraform apply plan.file'
+                        sh 'cd terraform ; terraform apply plan.file'
                     }
                 }
             }
