@@ -99,20 +99,20 @@ pipeline {
             )
         }
 
-        success { // Executado apenas se o pipeline for bem-sucedido
+        success { 
             
            bash ./deploy.sh
         }
 
-        failure { // Executado apenas se o pipeline falhar
+        failure { 
             echo 'This will run only if failed'
         }
 
-        unstable { // Executado apenas se o pipeline for marcado como instável
+        unstable { 
             echo 'This will run only if the run was marked as unstable'
         }
 
-        changed { // Executado apenas se o estado do pipeline mudar
+        changed { 
             echo 'This will run only if the state of the Pipeline has changed'
             echo 'For example, if the Pipeline was previously failing but is now successful'
         }
