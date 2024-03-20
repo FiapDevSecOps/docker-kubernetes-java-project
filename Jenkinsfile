@@ -7,7 +7,7 @@ pipeline {
         CONTAINER2 = 'shopfront'
         CONTAINER3 = 'stockmanager'
         USER = 'rosthan'
-        TAG = 'v1'
+        TAG = 'v-${BUILD_NUMBER}'
         DOCKERFILE_PATH = 'Dockerfile.master'
 
     }
