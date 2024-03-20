@@ -9,7 +9,8 @@ pipeline {
         // Nome do usuário
         USER = 'rosthan'
         // Tag da imagem Docker
-        TAG = 'v1'
+        TAG = 'v-${BUILD_NUMBER}'
+     
         // ID da chave de acesso da AWS
         AWS_ACCESS_KEY_ID = credentials('AWS_ACCESS_KEY_ID')
         // Chave secreta de acesso da AWS
