@@ -27,7 +27,7 @@ pipeline {
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
                         docker build -t ${USER}/${CONTAINER1}:v-${BUILD_NUMBER} -t ${USER}/${CONTAINER1}:latest .
-                        docker push ${USER}/${CONTAINER1}:latest 
+                        docker push ${USER}/${CONTAINER1}:v-${BUILD_NUMBER}
                     '''
                 }
                 
