@@ -7,7 +7,7 @@ pipeline {
         CONTAINER2 = 'shopfront'
         CONTAINER3 = 'stockmanager'
         USER = 'rosthan'
-        TAG = 'v-${BUILD_NUMBER}'
+        //TAG = 'v-}'
         DOCKERFILE_PATH = 'Dockerfile.master'
 
     }
@@ -26,7 +26,7 @@ pipeline {
                         cd productcatalogue
                         mvn clean install -DskipTests
                         docker login -u $HUB_USER -p $HUB_TOKEN 
-                        docker build -t ${USER}/${CONTAINER1}:${TAG} -t ${USER}/${CONTAINER1}:latest .
+                        docker build -t ${USER}/${CONTAINER1}:v-${BUILD_NUMBER} -t ${USER}/${CONTAINER1}:latest .
                         docker push ${USER}/${CONTAINER1}:latest 
                     '''
                 }
