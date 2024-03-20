@@ -1,0 +1,2 @@
+database="127.0.0.1"
+password="UIBJ78hbkji6743587$&6"
