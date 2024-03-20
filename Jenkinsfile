@@ -66,7 +66,7 @@ pipeline {
         stage('Secure Scan Test') {
             steps {
                 grypeScan scanDest: 'dir:./productcatalogue', repName: 'myScanResult.txt', autoInstall:true  
-                grypeScan scanDest: 'docker:${USER}/${APP}:latest', repName: 'myScanResult.txt', autoInstall:true         
+              //  grypeScan scanDest: 'docker:${USER}/${APP}:latest', repName: 'myScanResult.txt', autoInstall:true         
              }
         }
 
