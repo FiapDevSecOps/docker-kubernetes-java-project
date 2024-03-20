@@ -12,5 +12,21 @@ repos:
     - repo: https://github.com/gitleaks/gitleaks
       rev: v8.18.2
       hooks:
-        - id: gitleaks
+        - id: gitleaks-docker
+          name: Detect hardcoded secrets
+          description: Detect hardcoded secrets using Gitleaks
+          entry: zricethezav/gitleaks protect --verbose --redact --staged
+          language: docker_image
+    
+    #Validação de Arquivos de Kubernetes
+    - repo: https://github.com/Agilicus/pre-commit-hook-k8svalidate.git
+      rev: v0.2.0
+      hooks:
+        - id: k8svalidate
+          files: .yaml$
+    - repo: https://github.com/Yelp/detect-secrets
+      rev: v1.4.0
+      hooks:
+        - id: detect-secrets
+       
     # ...
