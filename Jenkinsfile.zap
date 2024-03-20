@@ -3,7 +3,7 @@ def scan_type
  pipeline {
      agent any
      parameters {
-         choice  choices: ["Baseline", "APIS", "Full"],
+         choice  choices: ["Full", "APIS", "Baseline"],
                  description: 'Type of scan that is going to perform inside the container',
                  name: 'SCAN_TYPE'
  
@@ -55,7 +55,7 @@ def scan_type
                  script {
                          sh """
                              docker exec owasp \
-                             mkdir /zap/wrk
+                             mkdir -p /zap/wrk
                          """
                      }
                  }
