@@ -63,10 +63,16 @@ pipeline {
             }
         }
 
-        stage('Secure Scan Test') {
+        stage('Secure Scan Test FS') {
             steps {
                 grypeScan scanDest: 'dir:./productcatalogue', repName: 'myScanResult-${BUILD_NUMBER}.txt', autoInstall:true  
               //  grypeScan scanDest: 'docker:${USER}/${APP}:latest', repName: 'myScanResult.txt', autoInstall:true         
+             }
+        }
+        
+        stage('Secure Scan Test DOCKER REPO IMAGE') {
+            steps {
+              grypeScan scanDest: 'docker:${USER}/${APP}:latest', repName: 'myScanResult.txt', autoInstall:true         
              }
         }
 
